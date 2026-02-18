@@ -1,4 +1,4 @@
-# GuardrailX Copilot Skill (No SDK)
+# GuardrailX Copilot Skill
 
 This repository provides a reusable GitHub Copilot skill for detecting:
 
