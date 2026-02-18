@@ -95,7 +95,7 @@ No SDK or external dependencies required.
 
 ## 📄 License
 
-MIT (or choose your preferred license)
+MIT
 
 ---
 
