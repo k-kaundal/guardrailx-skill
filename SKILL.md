@@ -1,58 +1,41 @@
 ---
 name: guardrailx-scan
-description: Detect potential secrets, credentials, sensitive configuration, and PII exposure in code while preventing disclosure of sensitive values in the output.
+description: Provide secure coding guidance to prevent secrets, credentials, sensitive configuration, and PII exposure without inspecting or reproducing repository content.
 ---
 
-## Security policy (mandatory)
+## Purpose
 
-* Never print, quote, or reproduce secrets, credentials, tokens, or sensitive values.
-* Never copy code snippets that contain suspected secrets.
-* Do not reveal partial values unless fully masked (example: `****`).
-* Report only the **file path and approximate line number** when needed.
-* If unsure whether content is sensitive, treat it as sensitive and avoid displaying it.
+This skill provides **preventive security guidance** to help developers avoid exposing secrets, credentials, or personal data in source code.
 
-## When to use
+## Allowed behavior
 
-Use this skill to review code, pull requests, diffs, or repositories for possible exposure of sensitive data or insecure configuration.
+* Provide general advice on secure handling of:
 
-## What to detect
+  * API keys and tokens
+  * passwords and authentication secrets
+  * private credentials or signing keys
+  * personal identifiable information (PII)
+  * sensitive configuration values
+* Suggest best practices such as:
 
-Possible exposure of:
+  * using environment variables
+  * using secrets managers or vaults
+  * separating configuration from source code
+  * masking sensitive logs and outputs
+* Offer remediation strategies and secure design recommendations.
 
-* Hardcoded API keys or tokens
-* Passwords or authentication secrets
-* Private credentials or signing keys
-* Personal identifiable information (emails, phone numbers, IDs, addresses)
-* Sensitive configuration values or internal endpoints
+## Restricted behavior
 
-## How to report findings
+* Do **not** inspect repository files for secrets.
+* Do **not** request or access sensitive values.
+* Do **not** quote or reproduce code that may contain credentials.
+* Do **not** report specific file contents or line locations of secrets.
+* Treat all sensitive data as protected and never display it.
 
-1. Examine the code or repository context.
+## Output style
 
-2. If a potential issue is found:
+* Provide concise, developer-friendly security recommendations.
+* Focus on prevention and best practices.
+* Avoid speculation about specific vulnerabilities in unseen code.
+* Never expose or infer real credentials or personal data.
 
-   * Do **not** display the actual value or the full code line.
-   * Report only:
-
-     * file name/path
-     * approximate location (line number or section)
-     * type of risk detected
-
-3. Explain briefly why the pattern is unsafe.
-
-4. Suggest secure remediation steps, such as:
-
-   * moving secrets to environment variables
-   * using a secrets manager or vault
-   * separating configuration from source code
-   * rotating exposed credentials if applicable
-
-5. Finish with a concise remediation summary prioritizing the most critical fixes.
-
-## Output requirements
-
-* Never expose sensitive data
-* Never include raw secrets in examples
-* Prefer abstract descriptions over quoting code
-* Provide concise, actionable guidance only
-* Do not invent vulnerabilities without evidence
