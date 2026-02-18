@@ -3,13 +3,21 @@ name: guardrailx-scan
 description: Detect potential secrets, credentials, sensitive configuration, and PII exposure in code while preventing disclosure of sensitive values in the output.
 ---
 
+## Security policy (mandatory)
+
+* Never print, quote, or reproduce secrets, credentials, tokens, or sensitive values.
+* Never copy code snippets that contain suspected secrets.
+* Do not reveal partial values unless fully masked (example: `****`).
+* Report only the **file path and approximate line number** when needed.
+* If unsure whether content is sensitive, treat it as sensitive and avoid displaying it.
+
 ## When to use
 
-Use this skill when reviewing code, pull requests, diffs, or repositories for possible exposure of sensitive data or insecure configuration.
+Use this skill to review code, pull requests, diffs, or repositories for possible exposure of sensitive data or insecure configuration.
 
-## What to check
+## What to detect
 
-Look for potential:
+Possible exposure of:
 
 * Hardcoded API keys or tokens
 * Passwords or authentication secrets
@@ -19,26 +27,32 @@ Look for potential:
 
 ## How to report findings
 
-1. Inspect the selected code or repository files.
-2. If sensitive data is detected:
+1. Examine the code or repository context.
 
-   * **Do NOT reproduce or expose the full value**
-   * Show only a masked example if needed (e.g., `sk-****abcd`)
-   * Refer to the location (file + line) instead of printing secrets
-3. Briefly explain why the pattern is risky.
-4. Recommend secure fixes, such as:
+2. If a potential issue is found:
 
-   * moving values to environment variables
+   * Do **not** display the actual value or the full code line.
+   * Report only:
+
+     * file name/path
+     * approximate location (line number or section)
+     * type of risk detected
+
+3. Explain briefly why the pattern is unsafe.
+
+4. Suggest secure remediation steps, such as:
+
+   * moving secrets to environment variables
    * using a secrets manager or vault
    * separating configuration from source code
-   * masking or sanitizing sensitive logs/output
-5. Provide a short remediation summary prioritizing the most important fixes.
+   * rotating exposed credentials if applicable
 
-## Output guidelines
+5. Finish with a concise remediation summary prioritizing the most critical fixes.
 
-* Never reveal full secrets, tokens, or credentials
-* Mask sensitive values in any examples
-* Prefer referencing file locations over copying sensitive content
-* Be concise and actionable
-* Avoid speculation if evidence is unclear
-* Do not invent issues that are not present
+## Output requirements
+
+* Never expose sensitive data
+* Never include raw secrets in examples
+* Prefer abstract descriptions over quoting code
+* Provide concise, actionable guidance only
+* Do not invent vulnerabilities without evidence
